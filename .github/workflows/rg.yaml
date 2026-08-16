@@ -27,15 +27,20 @@ jobs:
             - name: terraform init
               run: terraform init
 
-            # - name: Azure Login using secret
-            #   uses: azure/login@v1
-            #   with:
+            - name: Azure Login using secret
+              uses: azure/login@v1
+              with:
+                client-id: ${{ secrets.CLIENT_ID }}
+                tenant-id: ${{ secrets.TENANT_ID }}
+                subscription-id: ${{ secrets.SUBSCRIPTION_ID }}
+                client-secret: ${{ secrets.CLIENT_SECRET }}
             
-            # - name: terraform fmt
-            #   run: terraform fmt
+            - name: terraform fmt
+              run: terraform fmt
             
-            # - name: terraform validate
-            #   run: terraform validate
+            - name: terraform validate
+              run: terraform validate
+              
         
             
 
