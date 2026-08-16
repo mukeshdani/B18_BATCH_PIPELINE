@@ -1,0 +1,44 @@
+# Step1: Pipeline ka name
+name: RG Pipeline
+
+# Step2: Kab chalega
+on:
+    push:
+        branches:
+            - feature/*
+
+# Step3: aapko kya kaam krna hai 
+jobs:
+    scan:
+        # Step4: kaam kis laptop mai hogo 
+        runs-on: ubuntu-latest
+        
+        # Step5: ubuntu mai kaam krna kya hai  
+        steps:
+            - name: Github Copy kr rha hai code ko aapne computer mai
+              uses: actions/checkout@v4
+            
+            - name: Install Terraform (Setup terraform)
+              uses: hashicorp/setup-terraform@v2
+            
+            - name: terraform version check
+              run: terraform version
+
+            - name: terraform init
+              run: terraform init
+
+            # - name: Azure Login using secret
+            #   uses: azure/login@v1
+            #   with:
+            
+            # - name: terraform fmt
+            #   run: terraform fmt
+            
+            # - name: terraform validate
+            #   run: terraform validate
+        
+            
+
+
+
+
