@@ -10,31 +10,25 @@ on:
 # Step3: aapko kya kaam krna hai 
 jobs:
   scan:
-    # Step4: kaam kis laptop mai hoga 
+    # Kaam kis laptop mai hoga 
     runs-on: ubuntu-latest
     
-    # Step5: ubuntu mai kaam krna kya hai  
+    # Is job ko login ki zaroorat nahi hai agar local files check karni hain
     steps:
       - name: Github Copy kr rha hai code ko aapne computer mai
         uses: actions/checkout@v4
       
       - name: Install Terraform (Setup terraform)
-        uses: hashicorp/setup-terraform@v3 # Updated to v3 for latest runner support
+        uses: hashicorp/setup-terraform@v3 
       
-      - name: terraform version check
-        run: terraform version
-
       - name: terraform init
         run: terraform init
 
-      - name: terraform fmt
-        run: terraform fmt
-
   plan: 
     name: Manual Approval and Plan
-    needs: scan 
+    needs: scan
     runs-on: ubuntu-latest
-    environment: production 
+    environment: production
     
     steps: 
       - name: Github Copy kr rha hai code ko aapne computer mai
@@ -42,15 +36,14 @@ jobs:
       
       - name: Install Terraform (Setup terraform)
         uses: hashicorp/setup-terraform@v3
-    
+
+      - name: Azure Login using secret
+        uses: azure/login@v3 
+        with:
+          creds: ${{ secrets.ENV_SET }}
           
       - name: terraform init
         run: terraform init
-
-      - name: Azure Login
-        uses: azure/login@v2
-        with:
-          creds: ${{ secrets.AZURE_CREDENTIALS }}
 
       - name: terraform plan
         run: terraform plan
