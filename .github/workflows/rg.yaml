@@ -21,10 +21,22 @@ jobs:
       - name: Install Terraform (Setup terraform)
         uses: hashicorp/setup-terraform@v3 # Updated to v3 for latest runner support
       
+      - name: terraform version check
+        run: terraform version
+
+      - name: Azure Login using secret
+        uses: azure/login@v2
+        with:
+          creds: ${{ secrets.ENV_SET }}
 
       - name: terraform init
         run: terraform init
 
+      - name: terraform fmt
+        run: terraform fmt
+      
+      - name: terraform validate
+        run: terraform validate
 
   plan: 
     name: Manual Approval and Plan
@@ -43,3 +55,7 @@ jobs:
       - name: terraform init
         run: terraform init
 
+      - name: Azure Login using secret
+        uses: azure/login@v2
+        with:
+          creds: ${{ secrets.ENV_SET }}
