@@ -25,7 +25,7 @@ jobs:
         run: terraform version
 
       - name: Azure Login using secret
-        uses: azure/login@v2
+        uses: azure/login@v3
         with:
           creds: ${{ secrets.ENV_SET }}
 
@@ -56,6 +56,6 @@ jobs:
         run: terraform init
 
       - name: Azure Login using secret
-        uses: azure/login@v2
+        uses: azure/login@v3
         with:
           creds: ${{ secrets.ENV_SET }}
